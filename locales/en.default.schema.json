@@ -826,6 +826,9 @@
               },
               "options__2": {
                 "label": "Pills"
+              },
+              "options__3": {
+                "label": "Icon swatches"
               }
             }
           }
@@ -1958,6 +1961,9 @@
               },
               "options__2": {
                 "label": "Pills"
+              },
+              "options__3": {
+                "label": "Icon swatches"
               }
             }
           }

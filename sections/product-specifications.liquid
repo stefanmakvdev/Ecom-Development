@@ -1,0 +1,132 @@
+{{ 'section-product-specifications.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-specifications.js' | asset_url }}" defer="defer"></script>
+
+{%- assign selected_variant = product.selected_or_first_available_variant -%}
+
+<product-specifications
+  id="ProductSpecs-{{ section.id }}"
+  class="product-specs"
+  data-section="{{ section.id }}"
+>
+  <div class="product-specs__inner section-{{ section.id }}-padding">
+    <div class="product-specs__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="product-specs__eyebrow">
+          <span>{{ section.settings.eyebrow | escape }}</span>
+          <span class="product-specs__eyebrow-line" aria-hidden="true"></span>
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank -%}
+        <h2 class="product-specs__title">
+          {%- if section.settings.heading_before != blank -%}
+            {{ section.settings.heading_before | escape }}
+          {%- endif -%}
+          {%- if section.settings.heading_accent != blank -%}
+            <span class="product-specs__title-accent">{{ section.settings.heading_accent | escape }}</span>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="product-specs__subtitle">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div data-spec-grid>
+      {% render 'product-spec-grid', variant: selected_variant %}
+    </div>
+  </div>
+
+  <template data-spec-templates>
+    {%- for variant in product.variants -%}
+      <div data-variant-id="{{ variant.id }}">
+        {% render 'product-spec-grid', variant: variant %}
+      </div>
+    {%- endfor -%}
+  </template>
+</product-specifications>
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Product specifications",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHAT'S INSIDE"
+    },
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading",
+      "default": "The Complete Snowboard "
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading accent word",
+      "default": "Specs",
+      "info": "This word is styled with the accent color and must appear in the heading."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F6F9FA"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Complete snowboard variants. Pre-tuned, waxed, and ready to ride."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product specifications"
+    }
+  ]
+}
+{% endschema %}

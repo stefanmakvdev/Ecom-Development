@@ -1,0 +1,104 @@
+.product-specs {
+  --product-specs-accent: #8b2332;
+  --product-specs-surface: #f3f4f6;
+  --product-specs-card-border: #e5e7eb;
+  background: var(--product-specs-surface);
+}
+
+.product-specs__inner {
+  max-width: 124rem;
+  margin: 0 auto;
+}
+
+.product-specs__header {
+  max-width: 72rem;
+  margin: 0 0 3rem;
+  text-align: start;
+}
+
+.product-specs__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 0 0 1.5rem;
+  color: var(--product-specs-accent);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 15%;
+  text-transform: uppercase;
+}
+
+.product-specs__eyebrow-line {
+  display: inline-block;
+  width: 3.65rem;
+  height: 0.2rem;
+  background: var(--product-specs-accent);
+}
+
+.product-specs__title {
+  margin: 0 0 2rem;
+  font-family: 'Lora', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4.3rem;
+  line-height: 100%;
+  color: rgb(var(--color-foreground));
+}
+
+.product-specs__title-accent {
+  color: var(--product-specs-accent);
+}
+
+.product-specs__subtitle {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground));
+}
+
+.product-specs__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.product-specs__card {
+  background: #FFFFFF;
+  border: 0.1rem solid #D0D0D0;
+  border-radius: 1.2rem;
+  padding: 1.7rem;
+}
+
+.product-specs__label {
+  margin: 0 0 0.4rem;
+  font-family: 'Lora SemiBold', serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2.5rem;
+  line-height: 2.9rem;
+  color: rgb(var(--color-foreground));
+}
+
+.product-specs__value {
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  color: rgba(var(--color-foreground));
+}
+
+@media screen and (min-width: 750px) {
+  .product-specs__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .product-specs__card {
+    padding: 1.8rem 1.6rem;
+  }
+
+  .product-specs__label {
+    font-size: 1.6rem;
+  }
+}

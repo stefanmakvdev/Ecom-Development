@@ -1,0 +1,67 @@
+{% comment %}
+  Renders the specification card grid for a variant.
+
+  Accepts:
+  - variant: {Object}
+{% endcomment %}
+{%- liquid
+
+  if variant.metafields.custom.board_type != blank
+    assign spec_board_type = variant.metafields.custom.board_type
+  endif
+  if variant.metafields.custom.length != blank
+    assign spec_length = variant.metafields.custom.length
+  endif
+  if variant.metafields.custom.flex_rating != blank
+    assign spec_flex = variant.metafields.custom.flex_rating
+  endif
+  if variant.metafields.custom.profile != blank
+    assign spec_profile = variant.metafields.custom.profile
+  endif
+  if variant.metafields.custom.core_material != blank
+    assign spec_core = variant.metafields.custom.core_material
+  endif
+  if variant.metafields.custom.base != blank
+    assign spec_base = variant.metafields.custom.base
+  endif
+  if variant.metafields.custom.skill_level != blank
+    assign spec_skill = variant.metafields.custom.skill_level
+  endif
+  if variant.metafields.custom.terrain != blank
+    assign spec_terrain = variant.metafields.custom.terrain
+  endif
+-%}
+<div class="product-specs__grid">
+  <div class="product-specs__card">
+    <p class="product-specs__label">Board Type</p>
+    <p class="product-specs__value">{{ spec_board_type }}</p>
+  </div>
+  <div class="product-specs__card">
+    <p class="product-specs__label">Length</p>
+    <p class="product-specs__value">{{ spec_length | metafield_tag }}</p>
+  </div>
+  <div class="product-specs__card">
+    <p class="product-specs__label">Flex Rating</p>
+    <p class="product-specs__value">{{ spec_flex }}</p>
+  </div>
+  <div class="product-specs__card">
+    <p class="product-specs__label">Profile</p>
+    <p class="product-specs__value">{{ spec_profile }}</p>
+  </div>
+  <div class="product-specs__card">
+    <p class="product-specs__label">Core Material</p>
+    <p class="product-specs__value">{{ spec_core }}</p>
+  </div>
+  <div class="product-specs__card">
+    <p class="product-specs__label">Base</p>
+    <p class="product-specs__value">{{ spec_base }}</p>
+  </div>
+  <div class="product-specs__card">
+    <p class="product-specs__label">Skill Level</p>
+    <p class="product-specs__value">{{ spec_skill }}</p>
+  </div>
+  <div class="product-specs__card">
+    <p class="product-specs__label">Terrain</p>
+    <p class="product-specs__value">{{ spec_terrain }}</p>
+  </div>
+</div>

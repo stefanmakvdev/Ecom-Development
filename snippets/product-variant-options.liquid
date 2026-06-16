@@ -45,7 +45,110 @@
     endfor
   -%}
 
-  {%- if block.settings.picker_type == 'button' -%}
+  {%- if block.settings.picker_type == 'swatch' -%}
+    {%- liquid
+      assign swatch_image = null
+      assign swatch_color = null
+
+      if value.swatch.image
+        assign swatch_image = value.swatch.image
+      elsif value.swatch.color
+        assign swatch_color = value.swatch.color
+      endif
+
+      if swatch_image == null and swatch_color == null
+        for variant in product.variants
+          case option.position
+            when 1
+              if variant.option1 == value and variant.featured_media
+                assign swatch_image = variant.featured_media.preview_image
+                break
+              endif
+            when 2
+              if variant.option2 == value and variant.featured_media
+                assign swatch_image = variant.featured_media.preview_image
+                break
+              endif
+            when 3
+              if variant.option3 == value and variant.featured_media
+                assign swatch_image = variant.featured_media.preview_image
+                break
+              endif
+          endcase
+        endfor
+      endif
+
+      if swatch_image == null and swatch_color == null
+        for variant in product.variants
+          case option.position
+            when 1
+              if variant.option1 == value
+                if variant.metafields.custom.swatch_icon != blank
+                  assign swatch_image = variant.metafields.custom.swatch_icon
+                  break
+                endif
+              endif
+            when 2
+              if variant.option2 == value
+                if variant.metafields.custom.swatch_icon != blank
+                  assign swatch_image = variant.metafields.custom.swatch_icon
+                  break
+                endif
+              endif
+            when 3
+              if variant.option3 == value
+                if variant.metafields.custom.swatch_icon != blank
+                  assign swatch_image = variant.metafields.custom.swatch_icon
+                  break
+                endif
+              endif
+          endcase
+        endfor
+      endif
+    -%}
+    <input
+      type="radio"
+      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+      name="{{ option.name }}"
+      value="{{ value | escape }}"
+      form="{{ product_form_id }}"
+      class="product-variant-swatch__input{% if option_disabled %} disabled{% endif %}"
+      {% if option.selected_value == value %}
+        checked
+      {% endif %}
+      {% if option_disabled %}
+        disabled
+      {% endif %}
+    >
+    <label
+      class="product-variant-swatch__label{% if option_disabled %} product-variant-swatch__label--disabled{% endif %}"
+      for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+      title="{{ value | escape }}"
+    >
+      {%- if swatch_image -%}
+        {{
+          swatch_image
+          | image_url: width: 80
+          | image_tag:
+            class: 'product-variant-swatch__icon',
+            alt: value,
+            loading: 'lazy',
+            widths: '40, 80'
+        }}
+      {%- elsif swatch_color -%}
+        <span
+          class="product-variant-swatch__icon product-variant-swatch__icon--color"
+          style="--swatch-color: {{ swatch_color }}"
+        ></span>
+      {%- else -%}
+        <span class="product-variant-swatch__icon product-variant-swatch__icon--fallback">
+          {{ value | slice: 0 }}
+        </span>
+      {%- endif -%}
+      <span class="visually-hidden">{{ value -}}</span>
+      <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+    </label>
+  {%- elsif block.settings.picker_type == 'button' -%}
     <input
       type="radio"
       id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"

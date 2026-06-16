@@ -16,27 +16,27 @@
           "type": "title",
           "settings": {}
         },
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "body"
-          }
+        "price": {
+          "type": "price",
+          "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button"
+            "picker_type": "swatch"
           }
         },
         "quantity_selector": {
           "type": "quantity_selector",
-          "disabled": true,
           "settings": {}
         },
-        "price": {
-          "type": "price",
-          "settings": {}
+        "vendor": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "body"
+          }
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -44,10 +44,6 @@
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": false
           }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
         },
         "share": {
           "type": "share",
@@ -59,12 +55,11 @@
       },
       "block_order": [
         "title",
-        "vendor",
+        "price",
         "variant_picker",
         "quantity_selector",
-        "price",
+        "vendor",
         "buy_buttons",
-        "description",
         "share"
       ],
       "settings": {
@@ -80,6 +75,17 @@
         "enable_video_looping": false,
         "padding_top": 64,
         "padding_bottom": 0
+      }
+    },
+    "product-specifications": {
+      "type": "product-specifications",
+      "settings": {
+        "eyebrow": "WHAT'S INSIDE",
+        "heading_before": "The Complete Snowboard",
+        "heading_accent": "Specs",
+        "subheading": "Complete snowboard variants. Pre-tuned, waxed, and ready to ride.",
+        "padding_top": 50,
+        "padding_bottom": 50
       }
     },
     "related-products": {
@@ -102,6 +108,7 @@
   },
   "order": [
     "main",
+    "product-specifications",
     "related-products"
   ]
 }
